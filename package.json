@@ -1,0 +1,15 @@
+{
+  "name": "automation_test_66",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.3",
+    "allure-playwright": "^3.4.5"
+  }
+}
