@@ -1,0 +1,103 @@
+# Page snapshot
+
+```yaml
+- application [ref=e1]:
+  - 'dialog "ระบบบริหารงาน คณะเกษตรศาสตร์และเทคโนโลยี : ยินดีต้อนรับ นางสาวสุหรรษา ใจหนึ่ง" [active] [ref=e2]':
+    - toolbar [ref=e3]
+    - form [ref=e4]:
+      - img [ref=e6] [cursor=pointer]
+      - generic [ref=e7]: ยินดีต้อนรับ นางสาวสุหรรษา ใจหนึ่ง
+      - generic [ref=e8]: "ยินดีต้อนรับเข้าสู่ระบบบริหารจัดการและการตัดสินใจ (MIS) : คณะเกษตรศาสตร์และเทคโนโลยี"
+      - tablist [ref=e9]:
+        - tab "Main removable" [ref=e10] [cursor=pointer]:
+          - generic [ref=e11]: Main
+          - generic [ref=e12]: removable
+        - tab "ผลประเมินวิชาการ removable" [selected] [ref=e13] [cursor=pointer]:
+          - generic [ref=e14]: ผลประเมินวิชาการ
+          - generic [ref=e15]: removable
+      - tabpanel "ผลประเมินวิชาการ removable" [ref=e16]:
+        - grid [ref=e17]:
+          - rowgroup [ref=e18]:
+            - row "รหัสผลวิชาการ ชื่อเหน่วย/เรื่อง ประเภทผลงาน กรรมการ ประเภทกรรมการ สถานะประเมิน ผลประเมิน เจ้าของผลงาน" [ref=e19]:
+              - columnheader [ref=e20]
+              - columnheader "รหัสผลวิชาการ" [ref=e21]
+              - columnheader "ชื่อเหน่วย/เรื่อง" [ref=e22]
+              - columnheader "ประเภทผลงาน" [ref=e23]
+              - columnheader "กรรมการ" [ref=e24]
+              - columnheader "ประเภทกรรมการ" [ref=e25]
+              - columnheader "สถานะประเมิน" [ref=e26]
+              - columnheader "ผลประเมิน" [ref=e27]
+              - columnheader "เจ้าของผลงาน" [ref=e28]
+          - rowgroup [ref=e29]
+          - group [ref=e30]:
+            - button [disabled]
+            - button [disabled]
+            - separator [ref=e31]
+            - generic [ref=e32]: Page
+            - spinbutton [disabled]: "0"
+            - generic [ref=e33]: of 0
+            - separator [ref=e34]
+            - button [disabled]
+            - button [disabled]
+            - separator [ref=e35]
+            - button [ref=e36] [cursor=pointer]
+        - generic [ref=e37]: คำค้น
+        - textbox [ref=e38]
+        - generic [ref=e39]: รายงานการประเมินผลวิชาการ
+        - button "ปิดหน้านี้" [ref=e40] [cursor=pointer]:
+          - generic [ref=e41]: ปิดหน้านี้
+      - toolbar [ref=e42]:
+        - button [ref=e43] [cursor=pointer]
+      - toolbar [ref=e44]:
+        - button "*" [ref=e45] [cursor=pointer]
+        - separator [ref=e46]
+      - generic [ref=e47]:
+        - text: S U U R y i R
+        - list [ref=e48]:
+          - listitem [ref=e49]:
+            - generic [ref=e51]:
+              - generic [ref=e52]: S
+              - generic [ref=e53] [cursor=pointer]: Dashboard
+              - text: 
+            - list
+          - listitem [ref=e54]:
+            - generic [ref=e56]:
+              - generic [ref=e57]: U
+              - generic [ref=e58] [cursor=pointer]: เกี่ยวกับฉัน
+              - text: 
+            - list
+          - listitem [ref=e59]:
+            - generic [ref=e61]:
+              - generic [ref=e62]: U
+              - generic [ref=e63] [cursor=pointer]: คำสั่งปฏิบัติงานของฉัน
+              - text: 
+            - list
+          - listitem [ref=e64]:
+            - generic [ref=e66]:
+              - generic [ref=e67]: R
+              - generic [ref=e68] [cursor=pointer]: คลังคำสั่งปฏิบัติงานทั้งหมด
+              - text: 
+            - list
+          - listitem [ref=e69]:
+            - generic [ref=e71]:
+              - generic [ref=e72] [cursor=pointer]: "y"
+              - generic [ref=e73] [cursor=pointer]: การตั้งค่าข้อมูลส่วนตัว
+              - generic [ref=e74] [cursor=pointer]: 
+            - text: g   
+          - listitem [ref=e75]:
+            - generic [ref=e77]:
+              - generic [ref=e78]: i
+              - generic [ref=e79] [cursor=pointer]: กระดานถาม-ตอบ
+              - text: 
+            - list
+          - listitem [ref=e80]:
+            - generic [ref=e82]:
+              - generic [ref=e83]: R
+              - generic [ref=e84] [cursor=pointer]: Logout
+              - text: 
+            - list
+      - toolbar [ref=e85]:
+        - generic [ref=e86]: 15/03/2026 18:06:26 |
+        - generic [ref=e87]: MIS:AGRI-TECH | V1.0 | ระบบบริหารจัดการและสนับสนุนการตัดสินใจ คณะเกษตรศาสตร์และเทคโนโลยี มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตสุรินทร์
+        - generic [ref=e88]: "ติดต่อ ผู้พัฒนาระบบ Email : supakornsrisuk@gmail.com"
+```

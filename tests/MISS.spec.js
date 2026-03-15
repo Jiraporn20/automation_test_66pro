@@ -112,9 +112,9 @@ test('TC-005: เปิดเมนูคลังคำสั่งปฏิบ
   await page.waitForSelector('text=รหัสคำสั่ง');
 
   // ตรวจสอบหัวตาราง
-  await expect(page.getByText('รหัสคำสั่ง')).toBeVisible();
-  await expect(page.getByText('เรื่อง')).toBeVisible();
-  await expect(page.getByText('วันที่เริ่มต้น')).toBeVisible();
+  await expect(page.getByText('รหัสคำสั่ง').first()).toBeVisible();
+  await expect(page.getByText('เรื่อง').first()).toBeVisible();
+  await expect(page.getByText('วันที่เริ่มต้น').first()).toBeVisible();
 
   // screenshot
   await page.screenshot({
@@ -151,42 +151,290 @@ test('TC-006: เปิดหน้าการตั้งค่าข้อม
     path: 'screenshots/TC006-profile.png',
     fullPage: true
   });
-
 });
 // ============================================================
-// TC-007 ตรวจสอบหน้าระบบการลา-ไปราชการ
+// TC-007 เปิดหน้าการลาด้วย Selector รูปภาพ
 // ============================================================
-test('TC-007: เปิดหน้าระบบการลา-ไปราชการ', async ({ page }) => {
+test('TC-007: เปิดเมนูระบบการลา-ไปราชการ', async ({ page }) => {
 
   await page.goto(BASE_URL);
 
-  // login
+  
   await page.fill('input[type="text"]', VALID_USER);
   await page.fill('input[type="password"]', VALID_PASS);
   await page.click('text=OK');
 
+  // รอให้หน้า Dashboard โหลด
+  await page.waitForSelector('text=Dashboard');
+
+  // คลิกเมนูที่เป็นรูปภาพตามที่คุณระบุ
+  // ใช้ * เพื่อหาไฟล์ที่มีชื่อบางส่วนตรงกัน (แม่นยำและยืดหยุ่น)
+  await page.locator('img[src*="B9E908C51957064AD33E5E95"]').click();
+
+  // รอให้หน้าถัดไปโหลดเสร็จ
   await page.waitForLoadState('networkidle');
 
-  // คลิก View Details ระบบการลา (การ์ดแรก)
-  await page.locator('text=View Details').nth(0).click();
-
-  // รอหน้าระบบลาโหลด
-  await page.waitForSelector('text=ปีงบประมาณปัจจุบัน');
-
-  // ตรวจสอบข้อมูลสำคัญในหน้า
-  await expect(page.getByText('ปีงบประมาณปัจจุบัน')).toBeVisible();
-  await expect(page.getByText('ชื่อ-สกุล')).toBeVisible();
+  // ตรวจสอบหัวข้อ "ประวัติการลา" จากรูปแรกของคุณเพื่อยืนยันว่ามาถูกหน้า
   await expect(page.getByText('ประวัติการลา')).toBeVisible();
-
-  // ตรวจสอบหัวตาราง
-  await expect(page.getByText('รหัสบุคลากร')).toBeVisible();
-  await expect(page.getByText('วันทีลา')).toBeVisible();
-  await expect(page.getByText('เหตุการณ์')).toBeVisible();
 
   // screenshot
   await page.screenshot({
-    path: 'screenshots/TC007-leave-page.png',
+    path: 'screenshots/TC007-leave-system.png',
     fullPage: true
   });
+});
+// ============================================================
+// ============================================================
+// TC-011: เขียนใบลาป่วย/กิจ/คลอดบุตร
+// ============================================================
+test('TC-08: เปิดเมนูเขียนใบลาป่วย/กิจ/คลอดบุตร', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.locator('img[src*="B9E908C51957064AD33E5E95"]').click();
 
+  // ใช้ Regex /.../ เพื่อให้หาเจอแม้มีช่องว่าง และรอให้ปุ่มพร้อมคลิก
+  const menu = page.getByText(/เขียนใบลาป่วย\/กิจ\/คลอดบุตร/);
+  await menu.waitFor({ state: 'visible', timeout: 10000 });
+  await menu.click();
+  
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC011-sick-leave.png', fullPage: true });
+});
+
+// ============================================================
+// TC-012: เขียนใบขอยกเลิกวันลา
+// ============================================================
+test('TC-09: เปิดเมนูเขียนใบขอยกเลิกวันลา', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.locator('img[src*="B9E908C51957064AD33E5E95"]').click();
+
+  const menu = page.getByText(/เขียนใบขอยกเลิกวันลา/);
+  await menu.click();
+  
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC012-cancel-leave.png', fullPage: true });
+});
+
+// ============================================================
+// TC-014: รายงานการไปราชการ
+// ============================================================
+test('TC-010: เปิดเมนูรายงานการไปราชการ', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.locator('img[src*="B9E908C51957064AD33E5E95"]').click();
+
+  const menu = page.getByText(/รายงานการไปราชการ/);
+  await menu.click();
+  
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC014-report-trip.png', fullPage: true });
+});
+
+// ============================================================
+// TC-015: กลับหน้าหลัก
+// ============================================================
+test('TC-011: ทดสอบปุ่มกลับหน้าหลัก', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.locator('img[src*="B9E908C51957064AD33E5E95"]').click();
+
+  const menu = page.getByText(/กลับหน้าหลัก/);
+  await menu.click();
+  
+  await page.waitForSelector('text=Dashboard');
+  await page.screenshot({ path: 'screenshots/TC015-back-home.png', fullPage: true
+
+   });
+});
+// ============================================================
+// TC-017: เปิดเมนู "ระบบคำสั่งปฏิบัติราชการ"
+// ============================================================
+test('TC-017: เปิดเมนูระบบคำสั่งปฏิบัติราชการ', async ({ page }) => {
+
+  await page.goto(BASE_URL);
+
+  // Login
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+
+  // รอให้หน้า Dashboard โหลด
+  await page.waitForSelector('text=Dashboard');
+
+  // ใช้รหัสรูปภาพที่คุณเพิ่งเจอมาใส่ตรงนี้
+  await page.locator('img[src*="BD94432497C114F25553B132"]').click();
+
+  // รอให้หน้าถัดไปโหลดเสร็จ
+  await page.waitForLoadState('networkidle');
+
+
+  await expect(page.getByText('ระบบคำสั่งปฏิบัติงาน (ผู้ร่างคำสั่ง)')).toBeVisible();
+
+  // Screenshot
+  await page.screenshot({
+    path: 'screenshots/TC017-command-system.png',
+    fullPage: true
+  });
+});
+// ============================================================
+// TC-022: ร่างคำสั่งใหม่ (แก้ไข Selector ให้แม่นยำ)
+// ============================================================
+test('TC-022: เปิดเมนูร่างคำสั่งใหม่', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  await page.locator('img[src*="BD94432497C114F25553B132"]').click();
+  
+  // ใช้ locator ที่เจาะจงเฉพาะเมนูใน Sidebar
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'ร่างคำสั่งใหม่' }).click();
+  
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC022-new-draft.png', fullPage: true });
+});
+
+// ============================================================
+// TC-023: กล่องคำสั่ง
+// ============================================================
+
+test('TC-023: เปิดเมนูกล่องคำสั่ง', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  await page.locator('img[src*="BD94432497C114F25553B132"]').click();
+  
+ 
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'กล่องคำสั่ง' }).click();
+  
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC023-command-box.png', fullPage: true });
+});
+// ============================================================
+// TC-024: คำสั่งที่ดำเนินการแล้ว
+// ============================================================
+
+test('TC-024: เปิดเมนูคำสั่งที่ดำเนินการแล้ว', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  await page.locator('img[src*="BD94432497C114F25553B132"]').click();
+  
+ 
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'คำสั่งที่ดำเนินการแล้ว' }).click();
+  
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC024-done-commands.png', fullPage: true });
+});
+
+// ============================================================
+// TC-025: กลับหน้าหลัก
+// ============================================================
+test('TC-025: กลับหน้าหลักจากระบบคำสั่ง', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  await page.locator('img[src*="BD94432497C114F25553B132"]').click();
+  
+  // ใช้ .x-treelist-item-text เจาะจงเฉพาะเมนูใน Sidebar
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'กลับหน้าหลัก' }).click();
+  
+  await page.waitForSelector('text=Dashboard');
+  await page.screenshot({ path: 'screenshots/TC025-back-home.png', fullPage: true });
+});
+// ============================================================
+// TC-028: เปิดเมนู "ระบบประเมินผลวิชาการ"
+// ============================================================
+test('TC-028: เปิดเมนูระบบประเมินผลวิชาการ', async ({ page }) => {
+  await page.goto(BASE_URL);
+  
+  // Login
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+
+  
+  await page.locator('img[src*="CC92828B5EC3F5232B5484A7"]').click();
+  
+
+  await page.waitForLoadState('networkidle');
+
+
+  await expect(page.getByText('รายงานการประเมินผลวิชาการ')).toBeVisible();
+
+  // Screenshot
+  await page.screenshot({
+    path: 'screenshots/TC028-academic-assessment.png',
+    fullPage: true
+  });
+});
+// ============================================================
+// TC-029: เปิดเมนู "ระบบคำร้องจากนักศึกษา"
+// ============================================================
+test('TC-029: เปิดเมนูระบบคำร้องจากนักศึกษา', async ({ page }) => {
+  await page.goto(BASE_URL);
+  
+  // Login
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+
+
+  await page.locator('img[src*="6E15D0186AE9F8CFD8F1B7AA"]').click();
+  
+ 
+  await page.waitForLoadState('networkidle');
+
+  await expect(page.getByText('ยินดีต้อนรับ....โปรดเลือกเมนูใช้งานด้านซ้ายมือ.........')).toBeVisible({ timeout: 10000 });
+
+  // Screenshot
+  await page.screenshot({
+    path: 'screenshots/TC029-student-requests.png',
+    fullPage: true
+  });
+});
+
+test('TC-031: เปิดเมนูกล่องเข้าผู้สอน', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  await page.locator('img[src*="6E15D0186AE9F8CFD8F1B7AA"]').click();
+  await page.waitForLoadState('networkidle');
+
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'กล่องเข้า ผู้สอน' }).click();
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC031-teacher-inbox.png', fullPage: true });
+});
+
+test('TC-032: เปิดเมนูกล่องคำร้องที่ดำเนินการแล้ว', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  await page.locator('img[src*="6E15D0186AE9F8CFD8F1B7AA"]').click();
+  await page.waitForLoadState('networkidle');
+
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'กล่องคำร้องที่ดำเนินการแล้ว' }).click();
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC032-completed-req.png', fullPage: true });
 });

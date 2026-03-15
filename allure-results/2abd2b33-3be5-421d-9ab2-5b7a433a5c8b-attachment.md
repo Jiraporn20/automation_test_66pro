@@ -1,0 +1,77 @@
+# Page snapshot
+
+```yaml
+- application [ref=e1]:
+  - 'dialog "ระบบบริหารงาน คณะเกษตรศาสตร์และเทคโนโลยี : ยินดีต้อนรับ นางสาวสุหรรษา ใจหนึ่ง" [ref=e2]':
+    - toolbar [ref=e3]
+    - form [ref=e4]:
+      - img [ref=e6] [cursor=pointer]
+      - generic [ref=e7]: ยินดีต้อนรับ นางสาวสุหรรษา ใจหนึ่ง
+      - generic [ref=e8]: "ยินดีต้อนรับเข้าสู่ระบบบริหารจัดการและการตัดสินใจ (MIS) : คณะเกษตรศาสตร์และเทคโนโลยี"
+      - tablist [ref=e9]:
+        - tab "Main removable" [selected] [ref=e10] [cursor=pointer]:
+          - generic [ref=e11]: Main
+          - generic [ref=e12]: removable
+      - tabpanel "Main removable" [ref=e13]:
+        - img [ref=e15] [cursor=pointer]
+        - img [ref=e17] [cursor=pointer]
+        - img [ref=e19] [cursor=pointer]
+        - img [ref=e21] [cursor=pointer]
+        - img [ref=e23] [cursor=pointer]
+        - img [ref=e25] [cursor=pointer]
+        - img [ref=e27] [cursor=pointer]
+      - toolbar [ref=e28]:
+        - button [ref=e29] [cursor=pointer]
+      - toolbar [ref=e30]:
+        - button "*" [ref=e31] [cursor=pointer]
+        - separator [ref=e32]
+      - generic [active] [ref=e33]:
+        - text: S U U R y i R
+        - list [ref=e34]:
+          - listitem [ref=e35]:
+            - generic [ref=e37]:
+              - generic [ref=e38]: S
+              - generic [ref=e39] [cursor=pointer]: Dashboard
+              - text: 
+            - list
+          - listitem [ref=e40]:
+            - generic [ref=e42]:
+              - generic [ref=e43]: U
+              - generic [ref=e44] [cursor=pointer]: เกี่ยวกับฉัน
+              - text: 
+            - list
+          - listitem [ref=e45]:
+            - generic [ref=e47]:
+              - generic [ref=e48]: U
+              - generic [ref=e49] [cursor=pointer]: คำสั่งปฏิบัติงานของฉัน
+              - text: 
+            - list
+          - listitem [ref=e50]:
+            - generic [ref=e52]:
+              - generic [ref=e53]: R
+              - generic [ref=e54] [cursor=pointer]: คลังคำสั่งปฏิบัติงานทั้งหมด
+              - text: 
+            - list
+          - listitem [ref=e55]:
+            - generic [ref=e57]:
+              - generic [ref=e58] [cursor=pointer]: "y"
+              - generic [ref=e59] [cursor=pointer]: การตั้งค่าข้อมูลส่วนตัว
+              - generic [ref=e60] [cursor=pointer]: 
+            - text: g   
+          - listitem [ref=e61]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: i
+              - generic [ref=e65] [cursor=pointer]: กระดานถาม-ตอบ
+              - text: 
+            - list
+          - listitem [ref=e66]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: R
+              - generic [ref=e70] [cursor=pointer]: Logout
+              - text: 
+            - list
+      - toolbar [ref=e71]:
+        - generic [ref=e72]: 14/03/2026 19:17:42 |
+        - generic [ref=e73]: MIS:AGRI-TECH | V1.0 | ระบบบริหารจัดการและสนับสนุนการตัดสินใจ คณะเกษตรศาสตร์และเทคโนโลยี มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน วิทยาเขตสุรินทร์
+        - generic [ref=e74]: "ติดต่อ ผู้พัฒนาระบบ Email : supakornsrisuk@gmail.com"
+```
