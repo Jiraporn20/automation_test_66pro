@@ -438,3 +438,67 @@ test('TC-032: เปิดเมนูกล่องคำร้องที่
   await page.waitForLoadState('networkidle');
   await page.screenshot({ path: 'screenshots/TC032-completed-req.png', fullPage: true });
 });
+test('TC-034: เปิดเมนูรับ-ส่งหนังสือราชการ', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  
+  await page.locator('img[src*="058B4771EECC7D52F4364B2E"]').click();
+  await page.waitForLoadState('networkidle');
+  
+  await expect(page.getByText('Dashboard Home :')).toBeVisible();
+  await page.screenshot({ path: 'screenshots/TC034-eoffice.png', fullPage: true });
+});
+test('TC-035: เปิดเมนูกล่องหนังสือเข้า', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  
+  await page.locator('img[src*="058B4771EECC7D52F4364B2E"]').click();
+  await page.waitForLoadState('networkidle');
+  
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'กล่องหนังสือเข้า' }).click();
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC035-inbox.png', fullPage: true });
+});
+
+test('TC-036: เปิดเมนูกล่องหนังสือที่ดำเนินการแล้ว', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+  
+  await page.locator('img[src*="058B4771EECC7D52F4364B2E"]').click();
+  await page.waitForLoadState('networkidle');
+  
+  await page.locator('.x-treelist-item-text').filter({ hasText: 'กล่องหนังสือที่ดำเนินการแล้ว' }).click();
+  await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'screenshots/TC036-completed.png', fullPage: true });
+});
+// ============================================================
+// TC-037: เปิดเมนู "ระบบประเมิน(สมรรถนะ)"
+// ============================================================
+test('TC-037: เปิดเมนูระบบประเมิน(สมรรถนะ)', async ({ page }) => {
+  await page.goto(BASE_URL);
+  await page.fill('input[type="text"]', VALID_USER);
+  await page.fill('input[type="password"]', VALID_PASS);
+  await page.click('text=OK');
+  await page.waitForSelector('text=Dashboard');
+
+  // คลิกไอคอนระบบประเมิน(สมรรถนะ)
+  await page.locator('img[src*="0DF960E07605ED7984014999"]').click();
+  await page.waitForLoadState('networkidle');
+
+ 
+  await expect(page.getByText('Home')).toBeVisible({ timeout: 10000 });
+
+  await page.screenshot({
+    path: 'screenshots/TC037-competency-assessment.png',
+    fullPage: true
+  });
+});
